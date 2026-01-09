@@ -1,0 +1,29 @@
+server:
+  port: 8000
+spring:
+  application:
+    name: service-order
+  profiles:
+    active: dev
+    include: feign
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:8848
+        import-check:
+          enabled: false
+        namespace: ${spring.profiles.active:public}
+# 开启日志
+logging:
+  level:
+    org.example.feign.ProductFeignClient: DEBUG
+
+---
+spring:
+  config:
+    import:
+      - nacos:common.yaml?group=order
+      - nacos:database.yaml?group=order
+    activate:
+      on-profile: dev
+---
