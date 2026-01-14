@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import org.example.config.OrderConfig;
 import org.example.service.OrderService;
 import org.example.service_order.entity.Order;
@@ -26,6 +27,7 @@ public class OrderController {
      * @param productIds
      * @return
      */
+    @SentinelResource(value = "getOrder")
     @GetMapping("/query")
     public Result<OrderInfo> getOrder(@RequestParam("userId") Long userId,
                                       @RequestParam("productIds") List<Long> productIds) {
