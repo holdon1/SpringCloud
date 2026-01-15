@@ -15,7 +15,6 @@ public class FeignTest {
 
         String weather = weatherFeignClient.getWeather("","50b53ff8dd7d9fa320d3d3ca32cf8ed1","2182");
 
-
     }
 
 }

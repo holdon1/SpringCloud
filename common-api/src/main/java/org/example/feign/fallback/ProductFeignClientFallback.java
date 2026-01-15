@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 public class ProductFeignClientFallback implements ProductFeignClient {
     @Override
     public Result<Product> getProductById(Long id) {
+        System.out.println("兜底回调....");
         Product product = new Product();
         product.setId(id);
         product.setCategory(1L);

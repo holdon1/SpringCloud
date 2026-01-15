@@ -15,7 +15,6 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Result<Product> getProduct(Long id) {
 
-
         // 构造一个Product数据
         Product product = new Product();
         product.setId(id);
@@ -26,9 +25,9 @@ public class ProductServiceImpl implements ProductService {
         product.setCreationDate(LocalDateTime.now());
         product.setUpdateDate(LocalDateTime.now());
 
-        // 模拟超时机制
+//         模拟超时机制
 //        try {
-//            TimeUnit.SECONDS.sleep(100);
+//            TimeUnit.SECONDS.sleep(2);
 //        } catch (InterruptedException e) {
 //            throw new RuntimeException(e);
 //        }

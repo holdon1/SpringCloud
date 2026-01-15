@@ -1,5 +1,8 @@
 package org.example.service.serviceImpl;
 
+import com.alibaba.csp.sentinel.adapter.spring.webmvc_v6x.callback.BlockExceptionHandler;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.example.Result;
@@ -40,11 +43,13 @@ public class OrderServiceImpl implements OrderService {
      * @return
      */
     @Override
+    @SentinelResource(value = "getOrder",fallback = "getOrderFallback")
     public Result<OrderInfo> getOrder(Long userId, List<Long> productIds) {
 
         OrderInfo orderInfo = new OrderInfo();
 
         // 构造假数据
+        // todo 手动设置一个异常，检查是否调用兜底函数
 
         Order order = new Order();
         order.setUserId(userId);
@@ -67,6 +72,15 @@ public class OrderServiceImpl implements OrderService {
         return Result.success(orderInfo);
 
     }
+    public Result<OrderInfo> getOrderFallback(Long userId, List<Long> productIds, BlockException e) {
+        Order order = new Order();
+        order.setUserId(userId);
+        order.setAddress("");
+        order.setNickName("");
+        order.setId(0L);
+        return Result.error(500,"未知商品信息");
+    }
+
     private Product getProudtFromRemote(Long productId) {
         // 1.通过注册中心名字，获取注册中的服务ip+port
         List<ServiceInstance> instances = discoveryClient.getInstances("service-product");

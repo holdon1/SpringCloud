@@ -27,7 +27,7 @@ public class ProductController {
     @GetMapping("/{id}")
     public Result<Product> getProductInfo(@PathVariable("id") Long id,HttpServletRequest request) {
         System.out.println("token: "+request.getHeader("token"));
-        int i = 10 / 0;
+
         return productService.getProduct(id);
     }
 
