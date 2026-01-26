@@ -29,8 +29,8 @@ public class OrderController {
      */
 
     @GetMapping("/query")
-    public Result<OrderInfo> getOrder(@RequestParam("userId") Long userId,
-                                      @RequestParam("productIds") List<Long> productIds) {
+    public Result<OrderInfo> getOrder(@RequestParam(value = "userId",required=false) Long userId,
+                                      @RequestParam(value = "productIds",required = false) List<Long> productIds) {
         return orderService.getOrder(userId,productIds);
     }
 

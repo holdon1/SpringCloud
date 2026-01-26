@@ -1,0 +1,25 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: order
+          uri: lb://service-order
+          predicates:
+#            - Path=/dev-api/order/**  # 资源路径开头匹配即可，则访问资源
+            - name: Path
+              args:
+                patterns: /dev-api/order/**
+                matchTrailingSlash: true  # 保证路径结尾有一个反斜杠也可进行匹配
+#            - name: VIP
+#              args:
+#                param: userId
+#                value: 1
+          filters:
+            - AddResponseHeader=X-Response-head,abc
+
+        - id: product
+          uri: lb://service-product
+          predicates:
+            - Path=/dev-api/product/**
+
+
